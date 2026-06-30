@@ -1,6 +1,9 @@
 python-dotenv
 langchain
-langchain-core
 langchain-community
 langchain-groq
-chromadb
+langchain-chroma
+unstructured
+unstructured[md]
+langchain-huggingface
+sentence-transformers
