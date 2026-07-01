@@ -75,7 +75,7 @@ This project utilizes `uv` for ultra-fast, modern Python virtual environment and
 Clone the workspace and synchronize the environment state:
 ```bash
 # Verify your local environment and sync required dependencies
-uv pip install -r requirements.txt
+uv pip install -r requirments.txt
 ```
 
 ### 2. Configure Environment Parameters
