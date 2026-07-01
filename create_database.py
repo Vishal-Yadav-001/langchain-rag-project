@@ -28,11 +28,27 @@ def main():
 
 
 def generate_data_store():
+    print("\n" + "="*50)
+    print("🚀 STARTING RETRIEVAL INGESTION PIPELINE")
+    print("="*50)
+    
+    # Stage 1: Load Data
+    print("📂 [1/3] Loading raw text data from source directory...")
     documents = load_documents()
-    ## documents is a big one we nee to make it small to fit into context window, so we chunk
+    print(f"✅ Success: Imported {len(documents)} source files.")
+    
+    # Stage 2: Chunking
+    print("\n✂️ [2/3] Initiating hierarchical text chunking (Recursive)...")
     chunks = split_text(documents)
-    ## after making chunks we will convert it to vectors and store in chromadb
+    print(f"✅ Success: Partitioned text into {len(chunks)} overlapping fragments.")
+    
+    # Stage 3: Embedding & Vector Storage
+    print("\n🧠 [3/3] Generating embeddings and syncing with Chroma DB...")
     save_to_chroma(chunks)
+    
+    print("\n" + "="*50)
+    print("🎉 VECTOR DATABASE INDEXING COMPLETED")
+    print("="*50 + "\n")
 
 
 def load_documents():
@@ -46,7 +62,7 @@ def load_documents():
 def split_text(documents: list[Document]):
     """Convert a big documnet into smaller chunks and have overlap to preserve semantics"""
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=300, chunk_overlap=200, length_function=len, add_start_index=True
+        chunk_size=500, chunk_overlap=200, length_function=len, add_start_index=True
     )
 
     chunks = text_splitter.split_documents(documents)
@@ -60,7 +76,6 @@ def split_text(documents: list[Document]):
 
     return chunks
 
-    return chunks
 
 
 def save_to_chroma(chunks: list[Document]):
