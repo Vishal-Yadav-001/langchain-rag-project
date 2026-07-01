@@ -114,3 +114,4 @@ The underlying local judge scores candidates on an explicit quality scale to ass
 - [ ] **Parallel Batch Auditing:** Refactor the sequential execution loop to use LangChain's native `.batch()` asynchronous protocol. This will process all candidate documents concurrently in a single multi-threaded transaction, targeting up to a **75% reduction in network round-trip latency**.
 - [ ] Integrate local cross-encoder model optimization layers (e.g., `FlashRank`) to execute lightning-fast neural reranking before the judgment gates.
 - [ ] Migrate the runtime loop array into stateful node-and-edge graphs inside **LangGraph** to deploy a multi-agent hierarchy system matching Kaizan's core multi-agent deliverables.
+- [ ] Streaming LLM response to CLI, currently it waits till full genration
