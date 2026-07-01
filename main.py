@@ -5,13 +5,14 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_groq import ChatGroq
 import os
 from dotenv import load_dotenv
+
 load_dotenv()
 
 # API KEY FROQ
 os.environ["GROQ_API_KEY"] = os.getenv("GROQ_API_KEY")
 
 ## CHROMA DB STORAGE LOCATION
-CHROMA_PATH = os.path.join(os.getcwd(),"chroma")
+CHROMA_PATH = os.path.join(os.getcwd(), "chroma")
 embedding_model = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
 PROMPT_TEMPLATE = """
@@ -91,13 +92,9 @@ def main():
             )
             continue
 
-        context_text = "\n\n---\n\n".join(
-            [doc.page_content for doc, _score in results]
-        )
+        context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
         prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
-        prompt = prompt_template.format(
-            context=context_text, question=query_text
-        )
+        prompt = prompt_template.format(context=context_text, question=query_text)
 
         # FIX 2: Confirmed valid OpenAI open-weight model target on Groq
         llm = ChatGroq(model="openai/gpt-oss-120b")
